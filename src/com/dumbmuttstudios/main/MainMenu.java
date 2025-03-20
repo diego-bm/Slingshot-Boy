@@ -3,6 +3,9 @@ package com.dumbmuttstudios.main;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class MainMenu {
 	public String[] options = {"START", "LOAD", "EXIT"};
@@ -44,6 +47,43 @@ public class MainMenu {
 			} else if(options[currentOption] == "EXIT") {
 				System.exit(1);
 			}
+		}
+	}
+	
+	public static void saveGame(String[] val1, int[] val2, int encode) {
+		BufferedWriter write = null;
+		try {
+			write = new BufferedWriter(new FileWriter("save.txt"));
+		} catch(IOException e) {
+			System.err.println(e);
+		}
+		
+		for(int i = 0; i < val1.length; i++) {
+			String current = val1[i];
+			current += ":";
+			char[] value = Integer.toString(val2[i]).toCharArray();
+			
+			for(int n = 0; n < value.length; n++) {
+				value[n] += encode;
+				current += value[n];
+			}
+			
+			try {
+				write.write(current);
+				
+				if(i < val1.length - 1) {
+					write.newLine();
+				}
+			} catch(IOException e) {
+				System.err.println(e);
+			}
+		}
+		
+		try {
+			write.flush();
+			write.close();
+		} catch(IOException e) {
+			System.err.println(e);
 		}
 	}
 	
