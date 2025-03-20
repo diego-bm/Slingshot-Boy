@@ -1,11 +1,12 @@
 package com.dumbmuttstudios.entities;
 
-import java.awt.Color;
+// import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import com.dumbmuttstudios.main.Game;
+import com.dumbmuttstudios.main.Sound;
 import com.dumbmuttstudios.world.Camera;
 import com.dumbmuttstudios.world.World;
 
@@ -57,6 +58,7 @@ public class Enemy extends Entity {
 		} else {
 			this.isCollidingWithPlayer = true;
 			if(!Game.player.isDamaged) {
+				Sound.sfxHurt.play();
 				Game.player.hp--;
 				Game.player.isDamaged = true;
 			}

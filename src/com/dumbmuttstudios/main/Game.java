@@ -61,6 +61,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	private int maxLevel = 2;
 	
 	public Game() {
+		// Sound.musicBackground.loop();
 		rand = new Random();
 		addKeyListener(this);
 		addMouseListener(this);
@@ -73,10 +74,10 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		entities = new ArrayList<Entity>();
 		enemies = new ArrayList<Enemy>();
 		bullets = new ArrayList<Bullet>();
-		spritesheet = new Spritesheet("/spritesheet.png");
+		spritesheet = new Spritesheet("/sprites/spritesheet.png");
 		player = new Player(0, 0, 12, 8, spritesheet.getSprite(32, 0, 16, 16));
 		entities.add(player);
-		world = new World("/level1.png");
+		world = new World("/sprites/levels/level1.png");
 		Game.gameState = "MENU";
 		
 		menu = new MainMenu();
@@ -166,7 +167,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		double amountOfTicks = 60.0;
 		double ns = 1000000000 / amountOfTicks;
 		double delta = 0;
-		int frames = 0;
+		// int frames = 0;
 		double timer = System.currentTimeMillis();
 		
 		while(isRunning) {
@@ -177,13 +178,13 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			if(delta >= 1) {
 				tick();
 				render();
-				frames++;
+				// frames++;
 				delta--;
 			}
 			
 			if(System.currentTimeMillis() - timer >= 1000) {
 				// System.out.println("FPS: " + frames);
-				frames = 0;
+				// frames = 0;
 				timer += 1000;
 			}
 		}
@@ -318,7 +319,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	
 	public static void loadLevel(String level) {
 		loadGameVariables();
-		Game.world = new World("/" + level);
+		Game.world = new World("/sprites/levels/" + level);
 		Game.gameState = "RUNNING";
 		
 		return;
@@ -326,7 +327,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	
 	public static void reloadCurrentLevel() {
 		loadGameVariables();
-		Game.world = new World("/level" + currentLevel + ".png");
+		Game.world = new World("/sprites/levels/level" + currentLevel + ".png");
 		reloadingLevel = false;
 		Game.gameState = "RUNNING";
 		
@@ -339,7 +340,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		Game.entities = new ArrayList<Entity>();
 		Game.enemies.clear();
 		Game.enemies = new ArrayList<Enemy>();
-		Game.spritesheet = new Spritesheet("/spritesheet.png");
+		Game.spritesheet = new Spritesheet("/sprites/spritesheet.png");
 		Game.player = new Player(0, 0, 12, 8, Game.spritesheet.getSprite(32, 0, 16, 16));
 		Game.entities.add(Game.player);
 	}
