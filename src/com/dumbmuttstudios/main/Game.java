@@ -60,6 +60,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	private static int currentLevel = 1;
 	private int maxLevel = 2;
 	
+	public boolean saveGame = false;
+	
 	public Game() {
 		// Sound.musicBackground.loop();
 		rand = new Random();
@@ -92,6 +94,14 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	
 	public void tick() {
 		if(Game.gameState.equals("RUNNING")) {
+			if(this.saveGame) {
+				this.saveGame = false;
+				String[] opt1 = {"level", "hp"};
+				int[] opt2 = {Game.currentLevel, player.hp};
+				MainMenu.saveGame(opt1, opt2, 10);
+				System.out.println("Game saved!");
+			}
+			
 			for(int i = 0; i < entities.size(); i++) {
 				Entity e = entities.get(i);
 				e.tick();
@@ -259,7 +269,12 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			} else if(Game.gameState == "PAUSED") {
 				Game.gameState = "RUNNING";
 			}
-			
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+			if(Game.gameState == "RUNNING") {
+				this.saveGame = true;
+			}
 		}
 	}
 

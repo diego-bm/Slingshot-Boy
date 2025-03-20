@@ -16,8 +16,8 @@ public class Player extends Entity {
 	private double speed = 1.4;
 	private int maskX = 2, maskY = 10, maskW = 12, maskH = 6;
 	public int cursorX, cursorY;
-	public double hp = 3;
-	public double maxHP = 3;
+	public int hp = 3;
+	public int maxHP = 3;
 	private final int PLAYER_WIDTH = 16;
 	// private final int PLAYER_HEIGHT = 16;
 	
